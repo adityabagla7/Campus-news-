@@ -1,5 +1,6 @@
 import React from 'react'
 import './login.scss'
+import { Link } from 'react-router-dom'
 const Login = () => {
   return (
     <div className="login">
@@ -10,7 +11,9 @@ const Login = () => {
                 The news portal of BITS Goa, social media application.
             </p>
             <span>Don't have an account?</span>
+            <Link to="/register">
             <button>Register</button>
+            </Link>
         </div>
         <div className="right">
             <h1>Login</h1>

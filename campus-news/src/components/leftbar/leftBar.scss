@@ -1,4 +1,7 @@
+@import "../../style.scss";
+
 .leftBar{
+    @include themify($themes){
     position: sticky;
     top: 70px;
     height: calc(100vh - 70px);
@@ -7,6 +10,8 @@
     &::-webkit-scrollbar{
         display: none;
     }
+    background-color: themed("bg");
+    color: themed("textColor");
     .container{
         padding: 20px;
         .menu{
@@ -39,12 +44,9 @@
                     border-radius: 50%;
                     object-fit: cover;
                 }
-
-                span{
-
-                }
             }
 
         }
     }
+}
 }

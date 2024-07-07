@@ -7,6 +7,7 @@ import Home from './pages/home/home';
 import Login from "./pages/login/login";
 import Profile from './pages/profile/profile';
 import Register from "./pages/register/register";
+import "./style.scss";
 function App() {
   const currUser = true;
   const ProtactedRoute = ({children}) =>{
@@ -17,7 +18,7 @@ function App() {
   }
   const Layout = ()=>{
     return(
-      <div>
+      <div className="theme-dark">
         <Navbar/>
         <div style={{display: "flex"}}>
           <LeftBar/>

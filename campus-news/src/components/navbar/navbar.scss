@@ -15,6 +15,9 @@
         display: flex;
         align-items: center;
         gap: 30px;
+        .cur{
+          cursor: pointer;
+        }
         span{
             font-weight: bold;
             font-size: 20px;
@@ -32,27 +35,31 @@
                 width: 500px;
                 background-color: transparent;
                 color: themed("textColor");
+                &:focus {
+                  outline: none; // Remove default focus outline
+                  border: none; // Remove any border on focus
+                }
             }
         }
     }
-    .right{
+    .right {
         display: flex;
         align-items: center;
-        gap: 10px;
-        .user{
-            display: flex;
-            align-items: center;
-            font-weight: 500;
-              img {
-                width: 30px;
-                height: 30px;
-                border-radius: 50%;
-                object-fit: cover;
-              }
-            // span{
-
-            // }
+        gap: 20px;
+        margin-left: auto;
+        .user {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          font-weight: 500;
+  
+          img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            object-fit: cover;
+          }
         }
+      }
     }
-}
-}
+  }

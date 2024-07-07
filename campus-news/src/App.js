@@ -7,8 +7,11 @@ import Home from './pages/home/home';
 import Login from "./pages/login/login";
 import Profile from './pages/profile/profile';
 import Register from "./pages/register/register";
+import { DarkModeContext } from "./context/darkModeContext";
+import { useContext } from "react";
 import "./style.scss";
 function App() {
+  const {darkMode} = useContext(DarkModeContext);
   const currUser = true;
   const ProtactedRoute = ({children}) =>{
     if(!currUser){
@@ -18,7 +21,7 @@ function App() {
   }
   const Layout = ()=>{
     return(
-      <div className="theme-dark">
+      <div className={`theme-${darkMode ? "dark" : "light"}`}>
         <Navbar/>
         <div style={{display: "flex"}}>
           <LeftBar/>

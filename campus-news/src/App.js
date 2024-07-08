@@ -10,8 +10,10 @@ import Register from "./pages/register/register";
 import { DarkModeContext } from "./context/darkModeContext";
 import { useContext } from "react";
 import "./style.scss";
+import { AuthContext } from "./context/authContext";
 function App() {
   const {darkMode} = useContext(DarkModeContext);
+  // const {currUser} = useContext(AuthContext);
   const currUser = true;
   const ProtactedRoute = ({children}) =>{
     if(!currUser){

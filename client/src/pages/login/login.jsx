@@ -1,38 +1,70 @@
-import React from 'react'
-import './login.scss'
-import { Link } from 'react-router-dom'
-import { AuthContext } from '../../context/authContext';
-import { useContext } from 'react';
+import { useContext, useState } from "react";
+import "./login.scss";
+import { NavLink, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../context/authContext";
+
 const Login = () => {
+  const [inputs, setInputs] = useState({
+    username: "",
+    password: "",
+  });
+
+  const [err, setErr] = useState(null);
+
+  const handleChange = (e) => {
+    setInputs((prev) => {
+      return { ...prev, [e.target.name]: e.target.value };
+    });
+  };
   const { login } = useContext(AuthContext);
 
-  const handleLogin = () => {
-    login();
+  const navigate = useNavigate();
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      await login(inputs);
+      navigate("/");
+    } catch (err) {
+      setErr(err.response.data);
+    }
   };
+
   return (
     <div className="login">
       <div className="card">
         <div className="left">
-            <h1>BPGC News Portal</h1>
-            <p>
-                The news portal of BITS Goa, social media application.
-            </p>
-            <span>Don't have an account?</span>
-            <Link to="/register">
+        <h1>BPGC News</h1>
+          <p>
+            Campus chronicles: BITS Goa news portal
+          </p>
+          <span>Don&#39;t you have an account?</span>
+          <NavLink to="/register">
             <button>Register</button>
-            </Link>
+          </NavLink>
         </div>
         <div className="right">
-            <h1>Login</h1>
-            <form>
-                <input type="text" placeholder='Username'></input>
-                <input type="password" placeholder='Password'></input>
-                <button onClick={handleLogin}>Login</button>
-                </form>
+          <h1>Login</h1>
+          <form>
+            <input
+              type="text"
+              placeholder="Username"
+              name="username"
+              onChange={handleChange}
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              name="password"
+              onChange={handleChange}
+            />
+            {err && err}
+            <button onClick={handleLogin}>Login</button>
+          </form>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

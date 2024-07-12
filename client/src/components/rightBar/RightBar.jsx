@@ -1,5 +1,5 @@
-import React from 'react'
-import "./rightBar.scss"
+import "./rightBar.scss";
+
 const RightBar = () => {
   return (
     <div className="rightBar">
@@ -199,7 +199,7 @@ const RightBar = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default RightBar
+export default RightBar;

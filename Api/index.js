@@ -14,7 +14,6 @@ app.use((req, res, next) => {
   app.use(express.json());
   app.use(cors({ origin: "http://localhost:3000" }));
   app.use(cookieParser());
-app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes);

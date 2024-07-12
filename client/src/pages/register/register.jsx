@@ -1,8 +1,7 @@
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import "./register.scss";
 import axios from "axios";
-import { NavLink, useNavigate } from "react-router-dom";
-import { useContext, useState } from "react";
-import { AuthContext } from "../../context/authContext";
 
 const Register = () => {
   const [inputs, setInputs] = useState({
@@ -11,44 +10,38 @@ const Register = () => {
     password: "",
     name: "",
   });
-
-  const { login } = useContext(AuthContext);
-
   const [err, setErr] = useState(null);
 
   const handleChange = (e) => {
-    setInputs((prev) => {
-      return { ...prev, [e.target.name]: e.target.value };
-    });
+    setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
-
-  const navigate = useNavigate();
 
   const handleClick = async (e) => {
     e.preventDefault();
 
     try {
-      await axios.post("http://localhost:8800/api/auth/register", inputs);
-      const { username, password } = inputs;
-      login({ username, password });
-      navigate("/");
+      await axios.post("http://localhost:8800/Api/auth/register", inputs);
     } catch (err) {
       setErr(err.response.data);
     }
   };
 
+  console.log(err)
+
   return (
     <div className="register">
       <div className="card">
         <div className="left">
-          <h1>BPGC News</h1>
+          <h1>Lama Social.</h1>
           <p>
-            Campus chronicles: BITS Goa news portal
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero cum,
+            alias totam numquam ipsa exercitationem dignissimos, error nam,
+            consequatur.
           </p>
           <span>Do you have an account?</span>
-          <NavLink to="/login">
+          <Link to="/login">
             <button>Login</button>
-          </NavLink>
+          </Link>
         </div>
         <div className="right">
           <h1>Register</h1>

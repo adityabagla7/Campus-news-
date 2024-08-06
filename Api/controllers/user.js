@@ -1,3 +1,4 @@
-export const getUser =(req, res)=>{
-  
+export const getUser = (req, res)=>{
+    
+
 }

@@ -1,0 +1,33 @@
+{
+  "name": "campus-news-app",
+  "version": "1.0.0",
+  "description": "A modern campus news and social platform for students",
+  "main": "index.js",
+  "scripts": {
+    "start": "cd client && npm start",
+    "build": "cd client && npm run build",
+    "install-client": "cd client && npm install",
+    "install-server": "cd API && npm install",
+    "install-all": "npm run install-client && npm run install-server",
+    "start-client": "cd client && npm start",
+    "start-server": "cd API && npm start",
+    "dev": "concurrently \"npm run start-server\" \"npm run start-client\""
+  },
+  "keywords": [
+    "campus",
+    "news",
+    "social",
+    "student",
+    "community",
+    "react",
+    "nodejs"
+  ],
+  "author": "Campus News Team",
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt": "^6.0.0"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

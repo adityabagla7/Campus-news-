@@ -1,0 +1,570 @@
+@import "../../style.scss";
+
+.library-page {
+  @include themify($themes) {
+    min-height: calc(100vh - 70px);
+    background: themed("bgSoft");
+    
+    .library-header {
+      background: linear-gradient(135deg, #8b5cf6, themed("primary"));
+      color: white;
+      padding: 3rem 2rem;
+      
+      @include mobile {
+        padding: 2rem 1rem;
+      }
+      
+      .header-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        
+        @include mobile {
+          flex-direction: column;
+          gap: 1.5rem;
+          text-align: center;
+        }
+        
+        .title-section {
+          h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 0;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            
+            @include mobile {
+              font-size: 2rem;
+              justify-content: center;
+            }
+            
+            .title-icon {
+              font-size: 2.5rem;
+              
+              @include mobile {
+                font-size: 2rem;
+              }
+            }
+          }
+          
+          p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin: 0;
+            
+            @include mobile {
+              font-size: 1rem;
+            }
+          }
+        }
+        
+        .library-status {
+          display: flex;
+          gap: 2rem;
+          
+          @include mobile {
+            flex-direction: column;
+            gap: 1rem;
+          }
+          
+          .status-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            
+            svg {
+              font-size: 1.2rem;
+            }
+            
+            @include mobile {
+              justify-content: center;
+            }
+          }
+        }
+      }
+    }
+    
+    .library-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+      
+      @include mobile {
+        padding: 1rem;
+      }
+      
+      .library-search {
+        margin-bottom: 2rem;
+        
+        .search-section {
+          margin-bottom: 1.5rem;
+          
+          .search-bar {
+            display: flex;
+            align-items: center;
+            background: themed("cardColor");
+            border-radius: 25px;
+            padding: 0.75rem 1.5rem;
+            box-shadow: 0 2px 12px themed("shadow");
+            border: 1px solid themed("border");
+            max-width: 600px;
+            
+            svg {
+              color: themed("textColorSoft");
+              margin-right: 0.75rem;
+            }
+            
+            input {
+              border: none;
+              outline: none;
+              background: transparent;
+              color: themed("textColor");
+              font-size: 1rem;
+              flex: 1;
+              
+              &::placeholder {
+                color: themed("textColorSoft");
+              }
+            }
+          }
+        }
+        
+        .category-tabs {
+          display: flex;
+          gap: 1rem;
+          flex-wrap: wrap;
+          
+          .category-tab {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: themed("cardColor");
+            color: themed("textColor");
+            border: 2px solid themed("border");
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            
+            &:hover {
+              background: themed("bgSoft");
+              transform: translateY(-2px);
+            }
+            
+            &.active {
+              background: #8b5cf6;
+              color: white;
+              border-color: #8b5cf6;
+            }
+            
+            .count {
+              background: rgba(255, 255, 255, 0.2);
+              padding: 0.25rem 0.5rem;
+              border-radius: 15px;
+              font-size: 0.8rem;
+              font-weight: 600;
+            }
+          }
+        }
+      }
+      
+      .library-content {
+        display: grid;
+        grid-template-columns: 1fr 300px;
+        gap: 2rem;
+        
+        @include mobile {
+          grid-template-columns: 1fr;
+        }
+        
+        .main-section {
+          .resources-section {
+            h2 {
+              font-size: 1.8rem;
+              font-weight: 700;
+              color: themed("textColor");
+              margin-bottom: 1.5rem;
+            }
+            
+            .resources-grid {
+              display: grid;
+              grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+              gap: 1.5rem;
+              
+              .resource-card {
+                background: themed("cardColor");
+                border-radius: 16px;
+                padding: 1.5rem;
+                box-shadow: 0 4px 16px themed("shadow");
+                transition: all 0.3s ease;
+                border: 1px solid themed("border");
+                
+                &:hover {
+                  transform: translateY(-4px);
+                  box-shadow: 0 8px 25px themed("shadow");
+                }
+                
+                .resource-header {
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                  margin-bottom: 1rem;
+                  
+                  .resource-type {
+                    background: themed("bgSoft");
+                    color: themed("textColor");
+                    padding: 0.4rem 0.8rem;
+                    border-radius: 15px;
+                    font-size: 0.8rem;
+                    font-weight: 600;
+                  }
+                  
+                  .availability-badge {
+                    padding: 0.4rem 0.8rem;
+                    border-radius: 15px;
+                    font-size: 0.8rem;
+                    font-weight: 700;
+                    
+                    &.available {
+                      background: themed("success");
+                      color: white;
+                    }
+                    
+                    &.unavailable {
+                      background: themed("error");
+                      color: white;
+                    }
+                  }
+                }
+                
+                .resource-content {
+                  margin-bottom: 1.5rem;
+                  
+                  h3 {
+                    font-size: 1.2rem;
+                    font-weight: 600;
+                    color: themed("textColor");
+                    margin-bottom: 0.5rem;
+                    line-height: 1.3;
+                  }
+                  
+                  .author {
+                    color: themed("textColorSoft");
+                    font-size: 0.9rem;
+                    margin-bottom: 1rem;
+                    font-style: italic;
+                  }
+                  
+                  .resource-meta {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 0.5rem;
+                    
+                    .meta-item {
+                      display: flex;
+                      justify-content: space-between;
+                      font-size: 0.85rem;
+                      
+                      .label {
+                        color: themed("textColorSoft");
+                        font-weight: 500;
+                      }
+                      
+                      .value {
+                        color: themed("textColor");
+                        font-weight: 600;
+                      }
+                    }
+                    
+                    .rating {
+                      display: flex;
+                      align-items: center;
+                      gap: 0.25rem;
+                      
+                      .stars {
+                        font-size: 1rem;
+                      }
+                      
+                      .rating-value {
+                        color: themed("textColor");
+                        font-weight: 600;
+                        font-size: 0.9rem;
+                      }
+                    }
+                  }
+                }
+                
+                .resource-actions {
+                  .action-btn {
+                    width: 100%;
+                    padding: 0.75rem;
+                    border: none;
+                    border-radius: 12px;
+                    font-size: 0.9rem;
+                    font-weight: 600;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    
+                    &.primary {
+                      background: #8b5cf6;
+                      color: white;
+                      
+                      &:hover {
+                        background: #7c3aed;
+                        transform: translateY(-2px);
+                      }
+                    }
+                    
+                    &.disabled {
+                      background: themed("bgSoft");
+                      color: themed("textColorSoft");
+                      cursor: not-allowed;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+        
+        .sidebar-section {
+          display: flex;
+          flex-direction: column;
+          gap: 2rem;
+          
+          .study-rooms,
+          .library-hours,
+          .quick-stats {
+            background: themed("cardColor");
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 16px themed("shadow");
+            border: 1px solid themed("border");
+            
+            h3 {
+              font-size: 1.1rem;
+              font-weight: 700;
+              color: themed("textColor");
+              margin-bottom: 1rem;
+            }
+          }
+          
+          .study-rooms {
+            .rooms-list {
+              display: flex;
+              flex-direction: column;
+              gap: 1rem;
+              
+              .room-card {
+                background: themed("bgSoft");
+                border-radius: 12px;
+                padding: 1rem;
+                border: 1px solid themed("border");
+                
+                .room-header {
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                  margin-bottom: 0.75rem;
+                  
+                  h4 {
+                    font-size: 1rem;
+                    font-weight: 600;
+                    color: themed("textColor");
+                    margin: 0;
+                  }
+                  
+                  .status {
+                    padding: 0.25rem 0.5rem;
+                    border-radius: 10px;
+                    font-size: 0.7rem;
+                    font-weight: 600;
+                    text-transform: uppercase;
+                    
+                    &.available {
+                      background: themed("success");
+                      color: white;
+                    }
+                    
+                    &.occupied {
+                      background: themed("error");
+                      color: white;
+                    }
+                  }
+                }
+                
+                .room-info {
+                  margin-bottom: 1rem;
+                  
+                  .capacity {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                    color: themed("textColorSoft");
+                    font-size: 0.9rem;
+                    margin-bottom: 0.5rem;
+                    
+                    svg {
+                      font-size: 1rem;
+                    }
+                  }
+                  
+                  .facilities {
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 0.5rem;
+                    margin-bottom: 0.5rem;
+                    
+                    .facility-tag {
+                      background: themed("primary");
+                      color: white;
+                      padding: 0.25rem 0.5rem;
+                      border-radius: 8px;
+                      font-size: 0.7rem;
+                      font-weight: 500;
+                    }
+                  }
+                  
+                  .next-booking {
+                    font-size: 0.8rem;
+                    color: themed("textColorSoft");
+                    font-style: italic;
+                  }
+                }
+                
+                .book-btn {
+                  width: 100%;
+                  padding: 0.5rem;
+                  border: none;
+                  border-radius: 8px;
+                  font-size: 0.8rem;
+                  font-weight: 600;
+                  cursor: pointer;
+                  transition: all 0.3s ease;
+                  
+                  &.available {
+                    background: #8b5cf6;
+                    color: white;
+                    
+                    &:hover {
+                      background: #7c3aed;
+                    }
+                  }
+                  
+                  &.disabled {
+                    background: themed("bgSoft");
+                    color: themed("textColorSoft");
+                    cursor: not-allowed;
+                  }
+                }
+              }
+            }
+          }
+          
+          .library-hours {
+            .hours-list {
+              display: flex;
+              flex-direction: column;
+              gap: 0.5rem;
+              
+              .hours-item {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 0.5rem 0;
+                border-bottom: 1px solid themed("border");
+                
+                &:last-child {
+                  border-bottom: none;
+                }
+                
+                .day {
+                  font-weight: 600;
+                  color: themed("textColor");
+                  text-transform: capitalize;
+                }
+                
+                .time {
+                  color: themed("textColorSoft");
+                  font-size: 0.9rem;
+                }
+              }
+            }
+          }
+          
+          .quick-stats {
+            .stats-grid {
+              display: grid;
+              grid-template-columns: 1fr 1fr;
+              gap: 1rem;
+              
+              .stat-item {
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+                padding: 1rem;
+                background: themed("bgSoft");
+                border-radius: 12px;
+                border: 1px solid themed("border");
+                
+                svg {
+                  color: #8b5cf6;
+                  font-size: 1.5rem;
+                }
+                
+                .stat-info {
+                  display: flex;
+                  flex-direction: column;
+                  
+                  .stat-value {
+                    font-size: 1.2rem;
+                    font-weight: 700;
+                    color: themed("textColor");
+                  }
+                  
+                  .stat-label {
+                    font-size: 0.7rem;
+                    color: themed("textColorSoft");
+                    text-transform: uppercase;
+                    font-weight: 600;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Animations
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.library-page {
+  .library-container {
+    animation: fadeInUp 0.6s ease-out;
+  }
+  
+  .resource-card {
+    animation: fadeInUp 0.6s ease-out;
+  }
+} 

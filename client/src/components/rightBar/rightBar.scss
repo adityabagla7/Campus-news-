@@ -2,98 +2,473 @@
 
 .rightBar {
   @include themify($themes) {
-    flex: 3;
+    flex: 2.5;
     position: sticky;
     top: 70px;
     height: calc(100vh - 70px);
-    overflow: scroll;
-    background-color: themed("bgSoft");
-
-    @include mobile{
+    background: themed("sidebarBg");
+    border-left: 1px solid themed("border");
+    overflow-y: auto;
+    overflow-x: hidden;
+    
+    @include mobile {
       display: none;
     }
-    @include tablet{
-      display: none;
+    
+    @include tablet {
+      flex: 2;
     }
-
+    
     &::-webkit-scrollbar {
-      display: none;
+      width: 6px;
     }
-
-    .container {
-      padding: 20px;
-
-      .item {
-        -webkit-box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.09);
-        -moz-box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.09);
-        box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.09);
-        padding: 20px;
-        margin-bottom: 20px;
-        background-color: themed("bg");
-
-        span {
-          color: gray;
+    
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      background: themed("border");
+      border-radius: 3px;
+    }
+    
+    .rightBar-container {
+      padding: 1.5rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    
+    .widget {
+      background: themed("cardColor");
+      border-radius: 16px;
+      box-shadow: 0 2px 12px themed("shadow");
+      overflow: hidden;
+      transition: all 0.2s ease;
+      
+      &:hover {
+        box-shadow: 0 4px 20px themed("shadow");
+      }
+      
+      .widget-header {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 1.25rem 1.5rem;
+        background: linear-gradient(135deg, themed("primary"), themed("secondary"));
+        color: white;
+        
+        .widget-icon {
+          font-size: 1.3rem;
         }
-
-        .user {
+        
+        .widget-title {
+          font-size: 1rem;
+          font-weight: 600;
+          margin: 0;
+        }
+      }
+    }
+    
+    // Campus Announcements
+    .announcements-list {
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      
+      .announcement-item {
+        padding: 1rem;
+        background: themed("bgSoft");
+        border-radius: 12px;
+        border-left: 4px solid themed("primary");
+        transition: all 0.2s ease;
+        
+        &:hover {
+          transform: translateX(4px);
+          box-shadow: 0 2px 8px themed("shadow");
+        }
+        
+        .announcement-header {
+          display: flex;
+          align-items: flex-start;
+          gap: 0.75rem;
+          margin-bottom: 0.75rem;
+          
+          .announcement-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: themed("cardColor");
+            border-radius: 8px;
+            
+            svg {
+              font-size: 1.2rem;
+            }
+          }
+          
+          .announcement-meta {
+            flex: 1;
+            
+            .announcement-title {
+              font-size: 0.9rem;
+              font-weight: 600;
+              color: themed("textColor");
+              margin: 0;
+              margin-bottom: 0.25rem;
+            }
+            
+            .announcement-time {
+              font-size: 0.75rem;
+              color: themed("textColorSoft");
+            }
+          }
+        }
+        
+        .announcement-content {
+          font-size: 0.85rem;
+          line-height: 1.5;
+          color: themed("textColor");
+          margin: 0;
+          margin-bottom: 0.75rem;
+        }
+        
+        .announcement-footer {
+          .announcement-author {
+            font-size: 0.75rem;
+            color: themed("textColorSoft");
+            font-style: italic;
+          }
+        }
+      }
+    }
+    
+    // Upcoming Events
+    .events-list {
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      
+      .event-item {
+        padding: 1.25rem;
+        background: themed("bgSoft");
+        border-radius: 12px;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.2s ease;
+        
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 4px 16px themed("shadow");
+        }
+        
+        .event-category {
+          position: absolute;
+          top: 0;
+          right: 0;
+          background: themed("accent");
+          color: white;
+          padding: 0.25rem 0.75rem;
+          font-size: 0.7rem;
+          font-weight: 600;
+          border-radius: 0 0 0 8px;
+        }
+        
+        .event-title {
+          font-size: 1rem;
+          font-weight: 600;
+          color: themed("textColor");
+          margin: 0;
+          margin-bottom: 0.75rem;
+          padding-right: 4rem;
+        }
+        
+        .event-details {
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+          margin-bottom: 1rem;
+          
+          .event-detail {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+            color: themed("textColorSoft");
+            
+            svg {
+              font-size: 0.9rem;
+              color: themed("primary");
+            }
+          }
+        }
+        
+        .event-footer {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          margin: 20px 0px;
-
-          .userInfo {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            position: relative;
-
-            img {
-              width: 40px;
-              height: 40px;
-              border-radius: 50%;
-              object-fit: cover;
-            }
-
-            .online {
-              width: 12px;
-              height: 12px;
-              border-radius: 50%;
-              background-color: limegreen;
-              position: absolute;
-              top: 0;
-              left: 30px;
-            }
-
-            p {
-              color: themed("textColorSoft");
-            }
-
-            span {
-              font-weight: 500;
-              color: themed("textColor");
+          
+          .event-attendees {
+            font-size: 0.75rem;
+            color: themed("textColorSoft");
+          }
+          
+          .attend-btn {
+            background: themed("primary");
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            
+            &:hover {
+              background: #2563eb;
+              transform: scale(1.05);
             }
           }
-
-          .buttons {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-
-            button {
-              border: none;
-              padding: 5px;
+        }
+      }
+    }
+    
+    // Trending Topics
+    .trending-list {
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      
+      .trending-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 0.75rem;
+        background: themed("bgSoft");
+        border-radius: 10px;
+        transition: all 0.2s ease;
+        
+        &:hover {
+          background: themed("primary");
+          color: white;
+          transform: translateX(4px);
+        }
+        
+        .trending-rank {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 24px;
+          height: 24px;
+          background: themed("primary");
+          color: white;
+          border-radius: 50%;
+          font-size: 0.7rem;
+          font-weight: 600;
+        }
+        
+        .trending-content {
+          flex: 1;
+          
+          .trending-topic {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: themed("textColor");
+            margin-bottom: 0.125rem;
+          }
+          
+          .trending-posts {
+            font-size: 0.75rem;
+            color: themed("textColorSoft");
+          }
+        }
+        
+        &:hover {
+          .trending-rank {
+            background: rgba(255, 255, 255, 0.2);
+          }
+          
+          .trending-content {
+            .trending-topic,
+            .trending-posts {
               color: white;
-              cursor: pointer;
-
-              &:first-child {
-                background-color: #5271ff;
-              }
-
-              &:last-child {
-                background-color: #f0544f;
-              }
             }
           }
+        }
+      }
+    }
+    
+    // Suggested Connections
+    .connections-list {
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      
+      .connection-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem;
+        background: themed("bgSoft");
+        border-radius: 12px;
+        transition: all 0.2s ease;
+        
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 4px 12px themed("shadow");
+        }
+        
+        .connection-image {
+          width: 45px;
+          height: 45px;
+          border-radius: 50%;
+          object-fit: cover;
+          border: 2px solid themed("border");
+        }
+        
+        .connection-info {
+          flex: 1;
+          
+          .connection-name {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: themed("textColor");
+            margin: 0;
+            margin-bottom: 0.25rem;
+          }
+          
+          .connection-role {
+            font-size: 0.8rem;
+            color: themed("textColorSoft");
+            margin: 0;
+            margin-bottom: 0.25rem;
+          }
+          
+          .mutual-connections {
+            font-size: 0.7rem;
+            color: themed("textColorSoft");
+            font-style: italic;
+          }
+        }
+        
+        .connect-btn {
+          background: themed("secondary");
+          color: white;
+          border: none;
+          padding: 0.5rem 1rem;
+          border-radius: 20px;
+          font-size: 0.8rem;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          
+          &:hover {
+            background: #059669;
+            transform: scale(1.05);
+          }
+        }
+      }
+    }
+    
+    // Campus Topics
+    .topics-list {
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      
+      .topic-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem;
+        background: themed("bgSoft");
+        border-radius: 12px;
+        transition: all 0.2s ease;
+        
+        &:hover {
+          background: themed("primary");
+          color: white;
+          transform: translateX(4px);
+        }
+        
+        .topic-info {
+          flex: 1;
+          
+          .topic-name {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: themed("textColor");
+            margin: 0;
+            margin-bottom: 0.25rem;
+          }
+          
+          .topic-followers {
+            font-size: 0.75rem;
+            color: themed("textColorSoft");
+          }
+        }
+        
+        .follow-btn {
+          background: themed("primary");
+          color: white;
+          border: none;
+          padding: 0.5rem 1rem;
+          border-radius: 20px;
+          font-size: 0.8rem;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          
+          &:hover {
+            background: #2563eb;
+            transform: scale(1.05);
+          }
+        }
+        
+        &:hover {
+          .topic-info {
+            .topic-name,
+            .topic-followers {
+              color: white;
+            }
+          }
+          
+          .follow-btn {
+            background: rgba(255, 255, 255, 0.2);
+            
+            &:hover {
+              background: rgba(255, 255, 255, 0.3);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Responsive adjustments
+@include tablet {
+  .rightBar {
+    .rightBar-container {
+      padding: 1rem 0.75rem;
+      gap: 1rem;
+    }
+    
+    .widget {
+      border-radius: 12px;
+      
+      .widget-header {
+        padding: 1rem 1.25rem;
+        
+        .widget-title {
+          font-size: 0.9rem;
         }
       }
     }

@@ -2,80 +2,278 @@
 
 .share {
   @include themify($themes) {
-    -webkit-box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
-    -moz-box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
-    box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
-    border-radius: 20px;
-    background-color: themed("bg");
-    color: themed("textColor");
-    margin-bottom: 20px;
-
-    .container {
-      padding: 20px;
-      .top {
+    background: themed("cardColor");
+    border-radius: 16px;
+    box-shadow: 0 2px 12px themed("shadow");
+    margin-bottom: 2rem;
+    overflow: hidden;
+    transition: all 0.2s ease;
+    
+    &:hover {
+      box-shadow: 0 4px 20px themed("shadow");
+    }
+    
+    .share-container {
+      padding: 1.5rem;
+      
+      @include mobile {
+        padding: 1rem;
+      }
+    }
+    
+    .share-header {
+      margin-bottom: 1.5rem;
+      
+      .user-info {
         display: flex;
         align-items: center;
-        gap: 20px;
-        img {
-          width: 40px;
-          height: 40px;
+        gap: 1rem;
+        
+        .user-avatar {
+          width: 50px;
+          height: 50px;
           border-radius: 50%;
           object-fit: cover;
+          border: 3px solid themed("primary");
         }
-
-        input {
-          border: none;
-          outline: none;
-          padding: 20px 10px;
-          background-color: transparent;
-          width: 60%;
-          color: themed("textColor");
-        }
-      }
-
-      hr {
-        margin: 20px 0px;
-        border: none;
-        height: 0.5px;
-        background-color: themed("border");
-      }
-
-      .bottom {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        .left {
-          display: flex;
-          align-items: center;
-          gap: 20px;
-
-          .item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-
-            img {
-              height: 20px;
-            }
-
-            span {
-              font-size: 12px;
-              color: gray;
-            }
+        
+        .user-details {
+          flex: 1;
+          
+          h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: themed("textColor");
+            margin: 0;
+            margin-bottom: 0.25rem;
           }
-        }
-        .right {
-          button {
-            border: none;
-            padding: 5px;
-            color: white;
-            cursor: pointer;
-            background-color: #5271ff;
-            border-radius: 3px;
+          
+          span {
+            font-size: 0.85rem;
+            color: themed("textColorSoft");
           }
         }
       }
     }
+    
+    .share-form {
+      .post-input-container {
+        margin-bottom: 1.5rem;
+        
+        .post-input {
+          width: 100%;
+          border: 2px solid themed("border");
+          border-radius: 12px;
+          padding: 1rem;
+          font-size: 1rem;
+          color: themed("textColor");
+          background: themed("bgSoft");
+          resize: vertical;
+          min-height: 100px;
+          font-family: inherit;
+          transition: all 0.2s ease;
+          
+          &:focus {
+            outline: none;
+            border-color: themed("primary");
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+          }
+          
+          &::placeholder {
+            color: themed("textColorSoft");
+          }
+        }
+        
+        .file-preview {
+          margin-top: 1rem;
+          padding: 1rem;
+          background: themed("bgSoft");
+          border-radius: 12px;
+          border: 1px solid themed("border");
+          
+          .file-info {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            
+            .file-name {
+              font-size: 0.9rem;
+              color: themed("textColor");
+              font-weight: 500;
+            }
+            
+            .remove-file {
+              background: themed("error");
+              color: white;
+              border: none;
+              border-radius: 50%;
+              width: 24px;
+              height: 24px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              cursor: pointer;
+              font-size: 1.2rem;
+              transition: all 0.2s ease;
+              
+              &:hover {
+                background: #dc2626;
+                transform: scale(1.1);
+              }
+            }
+          }
+        }
+      }
+      
+      .category-selection {
+        margin-bottom: 1.5rem;
+        
+        .category-label {
+          display: block;
+          font-size: 0.9rem;
+          font-weight: 600;
+          color: themed("textColor");
+          margin-bottom: 0.75rem;
+        }
+        
+        .category-buttons {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.5rem;
+          
+          .category-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: themed("bgSoft");
+            border: 2px solid themed("border");
+            border-radius: 20px;
+            color: themed("textColor");
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            
+            &:hover {
+              background: themed("primary");
+              color: white;
+              border-color: themed("primary");
+            }
+            
+            &.active {
+              background: themed("primary");
+              color: white;
+              border-color: themed("primary");
+            }
+            
+            svg {
+              font-size: 1rem;
+            }
+          }
+        }
+      }
+      
+      .share-actions {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-top: 1rem;
+        border-top: 1px solid themed("border");
+        
+        @include mobile {
+          flex-direction: column;
+          gap: 1rem;
+          align-items: stretch;
+        }
+        
+        .action-buttons {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          
+          @include mobile {
+            flex-wrap: wrap;
+            justify-content: center;
+          }
+          
+          .action-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: transparent;
+            border: 1px solid themed("border");
+            border-radius: 20px;
+            color: themed("textColorSoft");
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            
+            &:hover {
+              background: themed("bgSoft");
+              color: themed("textColor");
+              border-color: themed("primary");
+            }
+            
+            svg {
+              font-size: 1rem;
+            }
+            
+            span {
+              @include mobile {
+                display: none;
+              }
+            }
+          }
+        }
+        
+        .share-btn {
+          background: themed("primary");
+          color: white;
+          border: none;
+          padding: 0.75rem 2rem;
+          border-radius: 25px;
+          font-size: 1rem;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          
+          &:hover:not(:disabled) {
+            background: #2563eb;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+          }
+          
+          &:disabled {
+            background: themed("textColorSoft");
+            cursor: not-allowed;
+            opacity: 0.6;
+          }
+          
+          @include mobile {
+            width: 100%;
+            padding: 1rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Add animation for smooth transitions
+.share {
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

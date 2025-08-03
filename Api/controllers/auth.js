@@ -1,68 +1,72 @@
-import { db } from "../connect.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import User from "../models/User.js";
 
-export const register = (req, res) => {
-  //CHECK USER IF EXISTS
+export const register = async (req, res) => {
+  try {
+    // Check if user exists
+    const existingUser = await User.findOne({ username: req.body.username });
+    if (existingUser) {
+      return res.status(409).json({ message: "User already exists!" });
+    }
 
-  const q = "SELECT * FROM users WHERE username = ?";
-
-  db.query(q, [req.body.username], (err, data) => {
-    if (err) return res.status(500).json(err);
-    if (data.length) return res.status(409).json("User already exists!");
-    //CREATE A NEW USER
-    //Hash the password
+    // Hash the password
     const salt = bcrypt.genSaltSync(10);
     const hashedPassword = bcrypt.hashSync(req.body.password, salt);
 
-    const q =
-      "INSERT INTO users (`username`,`email`,`password`,`name`) VALUE (?)";
-
-    const values = [
-      req.body.username,
-      req.body.email,
-      hashedPassword,
-      req.body.name,
-    ];
-
-    db.query(q, [values], (err, data) => {
-      if (err) return res.status(500).json(err);
-      return res.status(200).json("User has been created.");
+    // Create new user
+    const newUser = new User({
+      username: req.body.username,
+      email: req.body.email,
+      password: hashedPassword,
+      name: req.body.name
     });
-  });
+
+    // Save user
+    const savedUser = await newUser.save();
+    return res.status(200).json({ message: "User has been created." });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
 };
 
-export const login = (req, res) => {
-  const q = "SELECT * FROM users WHERE username = ?";
+export const login = async (req, res) => {
+  try {
+    // Find user
+    const user = await User.findOne({ username: req.body.username });
+    if (!user) {
+      return res.status(404).json({ message: "User not found!" });
+    }
 
-  db.query(q, [req.body.username], (err, data) => {
-    if (err) return res.status(500).json(err);
-    if (data.length === 0) return res.status(404).json("User not found!");
+    // Check password
+    const checkPassword = bcrypt.compareSync(req.body.password, user.password);
+    if (!checkPassword) {
+      return res.status(400).json({ message: "Wrong password or username!" });
+    }
 
-    const checkPassword = bcrypt.compareSync(
-      req.body.password,
-      data[0].password
-    );
+    // Create token
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET || "secretkey");
 
-    if (!checkPassword)
-      return res.status(400).json("Wrong password or username!");
-
-    const token = jwt.sign({ id: data[0].id }, "secretkey");
-
-    const { password, ...others } = data[0];
+    // Remove password from response
+    const { password, ...others } = user._doc;
 
     res
       .cookie("accessToken", token, {
         httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'strict'
       })
       .status(200)
-      .json(others);
-  });
+      .json({ data: others, message: "Login successful" });
+  } catch (error) {
+    console.error('Login error:', error);
+    return res.status(500).json({ message: error.message });
+  }
 };
 
 export const logout = (req, res) => {
-  res.clearCookie("accessToken",{
-    secure:true,
-    sameSite:"none"
-  }).status(200).json("User has been logged out.")
+  res.clearCookie("accessToken", {
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'strict'
+  }).status(200).json({ message: "User has been logged out." });
 };

@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { makeRequest } from "../../axios";
 import "./register.scss";
-import axios from "axios";
 
 const Register = () => {
   const [inputs, setInputs] = useState({
@@ -11,6 +11,8 @@ const Register = () => {
     name: "",
   });
   const [err, setErr] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -18,15 +20,20 @@ const Register = () => {
 
   const handleClick = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setErr(null);
 
     try {
-      await axios.post("http://localhost:8800/api/auth/register", inputs);
+      const response = await makeRequest.post("auth/register", inputs);
+      if (response.data.message === "User has been created.") {
+        navigate("/login");
+      }
     } catch (err) {
-      setErr(err.response.data);
+      setErr(err.response?.data?.message || "An error occurred during registration");
+    } finally {
+      setLoading(false);
     }
   };
-
-  console.log(err)
 
   return (
     <div className="register">
@@ -51,27 +58,33 @@ const Register = () => {
               placeholder="Username"
               name="username"
               onChange={handleChange}
+              disabled={loading}
             />
             <input
               type="email"
               placeholder="Email"
               name="email"
               onChange={handleChange}
+              disabled={loading}
             />
             <input
               type="password"
               placeholder="Password"
               name="password"
               onChange={handleChange}
+              disabled={loading}
             />
             <input
               type="text"
               placeholder="Name"
               name="name"
               onChange={handleChange}
+              disabled={loading}
             />
-            {err && err}
-            <button onClick={handleClick}>Register</button>
+            {err && <div className="error">{err}</div>}
+            <button onClick={handleClick} disabled={loading}>
+              {loading ? "Registering..." : "Register"}
+            </button>
           </form>
         </div>
       </div>

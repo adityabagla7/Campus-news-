@@ -1,5 +1,71 @@
-.posts{
-  display: flex;
-  flex-direction: column;
-  gap: 50px;
+@import "../../style.scss";
+
+.posts {
+  @include themify($themes) {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    width: 100%;
+    
+    .posts-header {
+      text-align: center;
+      padding: 2rem 0;
+      background: linear-gradient(135deg, themed("primary"), themed("secondary"));
+      border-radius: 16px;
+      color: white;
+      margin-bottom: 1rem;
+      
+      h2 {
+        font-size: 2rem;
+        font-weight: 700;
+        margin: 0;
+        margin-bottom: 0.5rem;
+        
+        @include mobile {
+          font-size: 1.5rem;
+        }
+      }
+      
+      p {
+        font-size: 1rem;
+        opacity: 0.9;
+        margin: 0;
+        max-width: 600px;
+        margin: 0 auto;
+        
+        @include mobile {
+          font-size: 0.9rem;
+          padding: 0 1rem;
+        }
+      }
+    }
+    
+    .posts-content {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      
+      @include mobile {
+        gap: 1.5rem;
+      }
+    }
+  }
+}
+
+// Add some loading states and animations
+.posts {
+  .posts-content {
+    animation: fadeIn 0.5s ease-out;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

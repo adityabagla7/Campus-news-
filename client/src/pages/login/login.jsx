@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
-import "./login.scss";
 import { NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/authContext";
+import "./login.scss";
 
 const Login = () => {
   const [inputs, setInputs] = useState({
@@ -10,6 +10,7 @@ const Login = () => {
   });
 
   const [err, setErr] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setInputs((prev) => {
@@ -22,11 +23,18 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setErr(null);
+    
     try {
-      await login(inputs);
-      navigate("/");
+      const response = await login(inputs);
+      if (response.data) {
+        navigate("/");
+      }
     } catch (err) {
-      setErr(err.response.data);
+      setErr(err.response?.data?.message || "An error occurred during login");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -52,15 +60,19 @@ const Login = () => {
               placeholder="Username"
               name="username"
               onChange={handleChange}
+              disabled={loading}
             />
             <input
               type="password"
               placeholder="Password"
               name="password"
               onChange={handleChange}
+              disabled={loading}
             />
-            {err && err}
-            <button onClick={handleLogin}>Login</button>
+            {err && <div className="error">{err}</div>}
+            <button onClick={handleLogin} disabled={loading}>
+              {loading ? "Logging in..." : "Login"}
+            </button>
           </form>
         </div>
       </div>

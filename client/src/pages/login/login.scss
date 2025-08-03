@@ -16,7 +16,7 @@
     .left {
       flex: 1;
       background: linear-gradient(rgba(39, 11, 96, 0.5), rgba(39, 11, 96, 0.5)),
-        url("https://images.pexels.com/photos/3228727/pexels-photo-3228727.jpeg?auto=compress&cs=tinysrgb&w=1600")
+        url("https://images.pexels.com/photos/4881619/pexels-photo-4881619.jpeg?auto=compress&cs=tinysrgb&w=1600")
           center;
       background-size: cover;
       padding: 50px;
@@ -69,6 +69,12 @@
         border: none;
         border-bottom: 1px solid lightgray;
         padding: 20px 10px;
+        }
+        
+        .error {
+          color: #ff0000;
+          font-size: 14px;
+          margin-top: -20px;
         }
         
         button {
